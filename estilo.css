@@ -1,0 +1,150 @@
+@font-face {
+  font-family: 'Geist Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url(../fonts/geist-latin-ext-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Geist Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url(../fonts/geist-latin-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+/*
+ * El sistema visual de Whoploader, «libro de registro»: sin color en el marco, todo en tinta, un único azul en
+ * el dato que importa (la tira de segmentos y el bloque PRO) y las cifras en Geist Mono. Los usa el popup,
+ * también en su aviso de privacidad; el detalle está en DESIGN.md. Las fuentes van empaquetadas: nada se carga de fuera.
+ */
+@import '@fontsource-variable/geist';
+@import '@fontsource-variable/geist-mono';
+
+:root {
+  color-scheme: light dark;
+  --font: 'Geist Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'Geist Mono Variable', ui-monospace, monospace;
+
+  --ground: #f8f8f8;
+  --surface: #ffffff;
+  --border: #e6e6e6;
+  --rule: #ececec;
+  --control: #d4d4d4;
+  --text: #0a0a0a;
+  --muted: #6b6b6b;
+  --primary: #141414;
+  --on-primary: #ffffff;
+  --secondary-bg: #e5e5e5;
+  --danger: #c4242a;
+  --on-danger: #ffffff;
+  /* Los textos de error, en el rojo de cancelar; los avisos, en ámbar. */
+  --error-text: #c4242a;
+  --warning-text: #8a5a00;
+  --hue: #1d5fbf;
+  --on-hue: #ffffff;
+  --track: #e3e3e3;
+  --pro-bg: #edf3fc;
+  --pro-border: #cfdcf3;
+  --link: #1d5fbf;
+
+  --tag-saved-bg: #e6f4e8;
+  --tag-saved-ink: #1b5e20;
+  --tag-paused-bg: #e7eefb;
+  --tag-paused-ink: #173f7a;
+  --tag-error-bg: #fce8e8;
+  --tag-error-ink: #8a1c1c;
+  --tag-cancelled-bg: #eeeeee;
+  --tag-cancelled-ink: #3d3d3d;
+  /* La cinta de obra de «En construcción»: amarillo y negro, igual en claro que en oscuro. */
+  --tape: #f2c200;
+  --tape-ink: #141414;
+}
+
+/* Oscuro: grises neutros por escalones de luz, el mismo azul aclarado y las etiquetas sobre su tono oscuro. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground: #0f0f0f;
+    --surface: #171717;
+    --border: #2a2a2a;
+    --rule: #232323;
+    --control: #3f3f3f;
+    --text: #f2f2f2;
+    --muted: #a6a6a6;
+    --primary: #f2f2f2;
+    --on-primary: #0f0f0f;
+    --secondary-bg: #2a2a2a;
+    --error-text: #f87171;
+    --warning-text: #f0b75a;
+    --hue: #5b93ec;
+    --on-hue: #0f0f0f;
+    --track: #2e2e2e;
+    --pro-bg: #111c2e;
+    --pro-border: #233a5e;
+    --link: #8ab4f8;
+
+    --tag-saved-bg: #15301b;
+    --tag-saved-ink: #8fd99d;
+    --tag-paused-bg: #14233d;
+    --tag-paused-ink: #9cbcf5;
+    --tag-error-bg: #3a1618;
+    --tag-error-ink: #f3a4a6;
+    --tag-cancelled-bg: #2a2a2a;
+    --tag-cancelled-ink: #cfcfcf;
+  }
+}
+
+/* Sin esto, una regla como `.strip { display: grid }` deja a la vista lo que lleva `hidden`. */
+[hidden] {
+  display: none !important;
+}
+
+/* En body y no en :root: Chrome da a las páginas de extensión `body { font-size: 75% }`, que lo dejaba en 10,5 px. */
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--text);
+  font: 14px/1.45 var(--font);
+}
+
+/* Las cifras, en la monoespaciada del registro; las palabras y las unidades, en el texto. */
+.num {
+  font-family: var(--mono);
+  font-size: 0.95em;
+  font-variant-numeric: tabular-nums;
+}
+
+a {
+  color: var(--link);
+}
+
+/* La marca sigue al botón principal: tinta con el triángulo en blanco; en oscuro, al revés. */
+.mark-base {
+  fill: var(--primary);
+}
+
+.mark-glyph {
+  fill: var(--on-primary);
+}
+
+* { box-sizing: border-box; }
+html { background: var(--ground); color: var(--text); }
+body { margin: 0; font: 15px/1.6 var(--font); }
+a { color: var(--link); }
+.marca { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 17px; text-decoration: none; color: var(--text); }
+.marca svg { width: 28px; height: 28px; border-radius: 7px; }
+/* En oscuro, el cuadrado negro de la marca se perdería en el fondo: un borde fino lo separa. */
+@media (prefers-color-scheme: dark) { .marca svg { box-shadow: 0 0 0 1px var(--border); } }
+header, main, footer { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding-top: 24px; padding-bottom: 8px; }
+nav ul { display: flex; flex-wrap: wrap; gap: 4px 12px; margin: 0; padding: 0; list-style: none; font-size: 13px; }
+nav a[aria-current] { color: var(--text); font-weight: 600; text-decoration: none; }
+main { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px; margin-top: 12px; }
+h1 { font-size: 24px; line-height: 1.25; margin: 0 0 8px; }
+h2 { font-size: 16px; margin: 28px 0 8px; }
+p, li { margin: 0 0 10px; }
+ul { padding-left: 20px; }
+.fecha { color: var(--muted); font-size: 13px; margin-bottom: 20px; }
+footer { color: var(--muted); font-size: 13px; padding-top: 16px; padding-bottom: 32px; }
+@media (max-width: 560px) { main { padding: 20px 18px; border-radius: 0; border-left: 0; border-right: 0; } }
